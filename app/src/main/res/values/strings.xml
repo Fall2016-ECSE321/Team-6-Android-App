@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FT Management System</string>
+    <string name="action_settings">Settings</string>
+    <string name="newStaff_Hint"> Name </string>
+    <string name="newStaff_Label"> Name? </string>
+    <string name="addStaff_Button"> Add Staff </string>
+    <string name="newRole_Hint"> Role </string>
+    <string name="newRole_Label"> Role? </string>
+    <string name="addRole_Button"> Add Role </string>
+    <string name="newShift_Label"> New Shift </string>
+    <string name="newShift_Hint"> Shift Day </string>
+    <string name="addShift_Button"> Add Shift </string>
+    <string name="newDate_Label"> Date </string>
+    <string name="newDate_Sample"> 01-01-2016 </string>
+    <string name="newStartTime_Label"> Start Time </string>
+    <string name="newStartTime_Sample"> 12:00 </string>
+    <string name="newEndTime_Label"> End time </string>
+    <string name="newEndTime_Sample"> 1:00 </string>
+    <string name="removeStaff_Label"> Remove Staff </string>
+</resources>

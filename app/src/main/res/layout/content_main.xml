@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ca.mcgill.ecse321.ftmanagementsystem.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Set up new Staffs  -->
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newstaff_name"
+            android:hint="@string/newStaff_Hint" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newstaff_role"
+            android:hint="@string/newRole_Hint" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/addStaff_Button"
+            android:onClick="addStaff"/>
+
+        <View
+            android:layout_height="4dp"
+            android:layout_width="fill_parent"
+            android:background="@color/colorSeparator"/>
+
+        <!-- Set up new Shifts -->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/newShift_Label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+        <!-- Set up Dates -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/newDate_Label"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/newDate_Sample"
+                android:layout_gravity="end"
+                android:id="@+id/new_date"
+                android:onClick="showDatePickerDialog"/>
+
+        </LinearLayout>
+
+        <!-- Set up Start Time -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/newStartTime_Label"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/newStartTime_Sample"
+                android:layout_gravity="end"
+                android:id="@+id/new_StartTime"
+                android:onClick="showTimePickerDialog"/>
+
+        </LinearLayout>
+
+        <!-- Set up End Time -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/newEndTime_Label"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/newEndTime_Sample"
+                android:layout_gravity="end"
+                android:id="@+id/new_EndTime"
+                android:onClick="showTimePickerDialog"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/addShift_Button"
+            android:onClick="addShift"/>
+
+        <View
+            android:layout_height="4dp"
+            android:layout_width="fill_parent"
+            android:background="@color/colorSeparator"/>
+
+        <!-- Set up Remove Staff  -->
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/removeStaff_Label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/newStaff_Label"/>
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/nameSpinner"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/removeStaff_Label"
+            android:onClick="removeStaff"/>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

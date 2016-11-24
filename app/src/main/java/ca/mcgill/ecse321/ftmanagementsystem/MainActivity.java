@@ -38,6 +38,11 @@ import ca.mcgill.ecse321.ftmanagementsystem.DatePickerFragment;
 import ca.mcgill.ecse321.ftmanagementsystem.R;
 import ca.mcgill.ecse321.ftmanagementsystem.TimePickerFragment;
 
+/* Maxence: "We need to comment on every methods done so far."
+    Also, this is a test for the PUSH optiong
+ */
+
+
 public class MainActivity extends AppCompatActivity {
     private HashMap<Integer, Staff> staffMembers;
     private HashMap<Integer, Shift> shifts;

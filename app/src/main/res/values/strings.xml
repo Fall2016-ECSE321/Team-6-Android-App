@@ -22,4 +22,5 @@
     <string name="AddStafftoShift">Assign Staff to Shift</string>
     <string name="RemoveStafffromShift">Remove Staff from Shift</string>
     <string name="removeShift_Label">Remove Shift</string>
+    <string name="newStaff">NEW STAFF</string>
 </resources>

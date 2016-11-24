@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
              shifttemp.hasNext(); j++) {
             Shift s = shifttemp.next();
             shiftAdapter.add(s.getShiftDate() + " (" + s.getStartTime() + "--" + s.getEndTime() +")");
-            this.shifts.put(i, s);
+            this.shifts.put(j, s);
         }
         spinner2.setAdapter(shiftAdapter);
     }
@@ -230,10 +230,6 @@ public class MainActivity extends AppCompatActivity {
             if (tv3 == null) {
                 error = error + " Shift end time cannot be empty!";
             }
-            /*//To fix this. It is still a little buggy need to change tv2 and tv3 into comparable objects
-            if( tv3 > tv2) {
-                error = error + " Shift end time cannot be before event start time!";
-            }*/
 
             error = error.trim();
             if (error.length() > 0)
@@ -347,6 +343,86 @@ public class MainActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
+    public void AddStafftoShift(View view) {
+
+        Spinner spinner1 = (Spinner) findViewById(R.id.shiftSpinner);
+        int index = spinner1.getSelectedItemPosition();
+
+        Spinner spinner2 = (Spinner) findViewById(R.id.nameSpinner);
+        int index2 = spinner2.getSelectedItemPosition();
+        try {
+            StaffController sc = new StaffController();
+            Shift s = shifts.get(index);
+            Staff f = staffMembers.get(index2);
+
+            String error = "";
+            if(f == null) {
+                error = error + " Staff member must be selected!";
+            }
+
+            if(s == null) {
+                error = error + " Shift must be selected!";
+            }
+
+//            if(f != null && s != null && !s.addStaff(f)) {
+//                error = error + " Shift is already assigned to selected staff!";
+//            }
+
+                if(f != null && s != null && !s.addStaff(f))
+                    error = error + " Shift is already assigned to selected staff!";
+
+            error.trim();
+            if (error.length() >0)
+                throw new InvalidInputException(error);
+        } catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+
+        refreshData();
+
+    }
+    public void removeShiftfromStaff(View v){
+        Spinner spinner1 = (Spinner) findViewById(R.id.shiftSpinner);
+        int index = spinner1.getSelectedItemPosition();
+
+        Spinner spinner2 = (Spinner) findViewById(R.id.nameSpinner);
+        int index2 = spinner2.getSelectedItemPosition();
+        try {
+            StaffController sc = new StaffController();
+            Shift s = shifts.get(index);
+            Staff f = staffMembers.get(index2);
+
+            String error = "";
+            if(f == null) {
+                error = error + " Staff member must be selected!";
+            }
+
+            if(s == null) {
+                error = error + " Shift must be selected!";
+            }
+            if(f != null && s != null && !s.removeStaff(f)) {
+                error = error + " Shift must be assigned to selected staff in order to unassign it!";
+            }
+            error.trim();
+            if (error.length() >0)
+                throw new InvalidInputException(error);
+        } catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+
+        refreshData();
+
+    }
+
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
         public SpinnerActivity() {

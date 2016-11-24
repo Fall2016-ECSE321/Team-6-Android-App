@@ -22,19 +22,28 @@
         android:layout_alignParentStart="true">
 
         <!-- Set up new Staffs  -->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/newStaff"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
         <EditText
+            android:textSize="14dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/newstaff_name"
             android:hint="@string/newStaff_Hint" />
 
         <EditText
+            android:textSize="14dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/newstaff_role"
             android:hint="@string/newRole_Hint" />
 
         <Button
+            android:textSize="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -121,6 +130,7 @@
         </LinearLayout>
 
         <Button
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -160,14 +170,16 @@
                 android:layout_gravity="left"
                 android:id="@+id/nameSpinner"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/removeStaff_Label"
-                android:onClick="removeStaff"
-                android:id="@+id/button2" />
+
         </LinearLayout>
+        <Button
+            android:textSize="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/removeStaff_Label"
+            android:onClick="removeStaff"
+            android:id="@+id/button2" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -185,11 +197,15 @@
 
         </LinearLayout>
         <Button
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/removeShift_Label"
-            android:onClick="removeShift"/>
+            android:onClick="removeShift"
+            android:id="@+id/button3" />
+
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -203,6 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <Button
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -210,11 +227,12 @@
             android:onClick="AddStafftoShift"/>
 
         <Button
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/RemoveStafffromShift"
-            android:onClick="RemoveStafffromShift"/>
+            android:onClick="removeShiftfromStaff"/>
 
         </LinearLayout>
 

@@ -16,7 +16,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!-- Set up new Staffs  -->
         <EditText
@@ -122,7 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/addShift_Button"
-            android:onClick="addShift"/>
+            android:onClick="addShift"
+            android:id="@+id/button" />
 
         <View
             android:layout_height="4dp"
@@ -135,34 +139,86 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:text="@string/removeStaff_Label"
+            android:text="@string/staffmanager_Label"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
+
             <TextView
+
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/newStaff_Label"/>
+                android:text="@string/newStaff_Label"
+                android:id="@+id/textView2" />
+
             <Spinner
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="left"
                 android:id="@+id/nameSpinner"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/removeStaff_Label"
+                android:onClick="removeStaff"
+                android:id="@+id/button2" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/shift_Label"
+                android:id="@+id/textView" />
+
+            <Spinner
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:id="@+id/shiftSpinner"/>
+
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/removeShift_Label"
+            android:onClick="removeShift"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/AddStafftoShift"
+            android:onClick="AddStafftoShift"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="@string/removeStaff_Label"
-            android:onClick="removeStaff"/>
+            android:text="@string/RemoveStafffromShift"
+            android:onClick="RemoveStafffromShift"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

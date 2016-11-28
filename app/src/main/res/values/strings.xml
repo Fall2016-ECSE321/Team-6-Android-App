@@ -23,4 +23,20 @@
     <string name="RemoveStafffromShift">Remove Staff from Shift</string>
     <string name="removeShift_Label">Remove Shift</string>
     <string name="newStaff">NEW STAFF</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="newSupply">New Supply</string>
+    <string name="createSupply">ADD</string>
+    <string name="supplyQuantity">Quantity</string>
+    <string name="removeSupply">Remove</string>
+    <string name="supplySpinnerLabal">Supply</string>
+    <string name="addtoSupplyInventory">Add to Inventory</string>
+    <string name="removeFromeSupplyInventory">Remove from Inventory</string>
+    <string name="newEquipent_Hint">Equipment</string>
+    <string name="Equipment">Equipment</string>
+    <string name="newSupplyHint">Add Supply</string>
+    <string name="newEquipment">Add Equipment</string>
+    <string name="newBestBeforeDate">Expiration Date</string>
+    <string name="equipmentSpinnerLable">Equipment</string>
+    <string name="newEquipment_Hint">Add Equipment</string>
 </resources>

@@ -2,19 +2,18 @@ package ca.mcgill.ecse321.ftmanagementsystem;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -35,16 +34,11 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.StaffController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.SupplyController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
-import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
-import ca.mcgill.ecse321.ftmanagementsystem.DatePickerFragment;
-import ca.mcgill.ecse321.ftmanagementsystem.R;
-import ca.mcgill.ecse321.ftmanagementsystem.TimePickerFragment;
 
-
-public class MainActivity extends AppCompatActivity {
+public class TabbedActivity extends AppCompatActivity {
     private HashMap<Integer, Staff> staffMembers;
     private HashMap<Integer, Shift> shifts;
     private HashMap<Integer, Supply> supplies;
@@ -55,19 +49,46 @@ public class MainActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
+
+    TabHost host;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabbed);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
+        host= (TabHost)findViewById(R.id.tabHost);
         refreshData();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        host.setup();
+
+        //Tab 1
+        TabHost.TabSpec spec = host.newTabSpec("Staff Shift");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("Staff Shift");
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec("Supply Equipment");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Supyly Equipment");
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec("Tab 2Three");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Order");
+        host.addTab(spec);
+
+
+        host.getCurrentTab();
+
     }
+
 
     private void refreshData() {
 
@@ -104,6 +125,22 @@ public class MainActivity extends AppCompatActivity {
             this.shifts.put(j, s);
         }
         spinner2.setAdapter(shiftAdapter);
+        Spinner spinner3 = (Spinner) findViewById(R.id.supplySpinner);
+
+        ArrayAdapter<CharSequence> supplyAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        supplyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.supplies = new HashMap<Integer, Supply>();
+        int k = 0;
+        FoodTruckManager fm3 = FoodTruckManager.getInstance();
+        for (Iterator<Supply> supplytemp = fm3.getSupplies().iterator();
+             supplytemp.hasNext(); k++) {
+            Supply s = supplytemp.next();
+            supplyAdapter.add(s.getName());
+            this.supplies.put(k, s);
+        }
+        spinner3.setAdapter(supplyAdapter);
+
+
     }
 
     @Override
@@ -134,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         StaffController sc = new StaffController();
         try {
             sc.createStaff(name.getText().toString(), role.getText().toString());
-
+//TODO: CRASH
       /*      if (name == null) {
                 error = error + " Staff name cannot be empty!";
             }
@@ -215,21 +252,21 @@ public class MainActivity extends AppCompatActivity {
 
             sc.createShift(sqldate, time1, time2);
 
-         //   if (tv1 == null) {
-         //       error = error + " Shift date cannot be empty!";
-         //   }
+            //   if (tv1 == null) {
+            //       error = error + " Shift date cannot be empty!";
+            //   }
 
-           // if (tv2 == null) {
+            // if (tv2 == null) {
             //    error = error + " Shift start time cannot be empty!";
             //}
 
-          //  if (tv3 == null) {
-           //     error = error + " Shift end time cannot be empty!";
-           // }
+            //  if (tv3 == null) {
+            //     error = error + " Shift end time cannot be empty!";
+            // }
 
-        //    error = error.trim();
-         //   if (error.length() > 0)
-          //      throw new InvalidInputException(error);
+            //    error = error.trim();
+            //   if (error.length() > 0)
+            //      throw new InvalidInputException(error);
         } catch (InvalidInputException e) {
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
             dlgAlert.setMessage(e.getMessage());
@@ -412,8 +449,177 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
 
     }
+    public void createSupply(View v) {
+        TextView supply = (TextView) findViewById(R.id.newSupply);
+        TextView quantity = (TextView) findViewById(R.id.supplyQuantity);
+        TextView date = (TextView) findViewById(R.id.bestBeforeDate);
+        SupplyController sc = new SupplyController();
+        String error = "";
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            java.util.Date parsed = simpleDateFormat.parse(date.getText().toString());
+            Date sqldate = new Date(parsed.getTime());
+              sc.createSupply(supply.getText().toString(),quantity.getText().toString(),sqldate);
+
+        } catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        refreshData();
+    }
+    public void removeSupply(View v) {
+        Spinner spinner1 = (Spinner) findViewById(R.id.supplySpinner);
+
+        int index = spinner1.getSelectedItemPosition();
+        try {
+            SupplyController sc = new SupplyController();
+            sc.removeSupply(supplies.get(index));
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+
+    public void addToSupplyInventory(View v){
+        TextView tv1 = (TextView) findViewById(R.id.quantityS);
+        Spinner spinner1 = (Spinner) findViewById(R.id.supplySpinner);
+        int index = spinner1.getSelectedItemPosition();
+
+        try {
+            SupplyController sc = new SupplyController();
+            sc.addToSupplyInventory(supplies.get(index),tv1.getText().toString());
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+    public void removeFromSupplyInventory(View v){
+        TextView tv1 = (TextView) findViewById(R.id.quantityS);
+        Spinner spinner1 = (Spinner) findViewById(R.id.supplySpinner);
+        int index = spinner1.getSelectedItemPosition();
+
+        try {
+            SupplyController sc = new SupplyController();
+            sc.removeFromSupplyInventory(supplies.get(index),tv1.getText().toString());
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+
+    public void createEquipment(View v){
+        TextView equipment = (TextView) findViewById(R.id.newEquipment);
+        TextView quantity = (TextView) findViewById(R.id.equipmentQuantity);
+        EquipmentController ec = new EquipmentController();
+        try {
+            ec.createEquipment(equipment.getText().toString(), quantity.getText().toString());
+
+        } catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+
+        }
+        refreshData();
+    }
+    public void removeEquipment(View v){
+        Spinner spinner1 = (Spinner) findViewById(R.id.equipmentSpinner);
+
+        int index = spinner1.getSelectedItemPosition();
+        try {
+            EquipmentController ec = new EquipmentController();
+            ec.removeEquipment(equipments.get(index));
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+    public void addToEquipmentInventory(View v){
+        TextView tv1 = (TextView) findViewById(R.id.quantityE);
+        Spinner spinner1 = (Spinner) findViewById(R.id.equipmentSpinner);
+        int index = spinner1.getSelectedItemPosition();
+
+        try {
+            EquipmentController ec = new EquipmentController();
+            ec.addToEquipmentInventory(equipments.get(index),tv1.getText().toString());
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+    public void removeFromEquipmentInventory(View v){
+        TextView tv1 = (TextView) findViewById(R.id.quantityE);
+        Spinner spinner1 = (Spinner) findViewById(R.id.equipmentSpinner);
+        int index = spinner1.getSelectedItemPosition();
+
+        try {
+            EquipmentController ec = new EquipmentController();
+            ec.removeFromEquipmentInventory(equipments.get(index),tv1.getText().toString());
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
 
 
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+    }
 
-
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 }
+
+
+
+

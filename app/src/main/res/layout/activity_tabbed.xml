@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_tabbed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ca.mcgill.ecse321.ftmanagementsystem.TabbedActivity">
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <FrameLayout
+
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+//Tab 1
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/content_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingBottom="@dimen/activity_vertical_margin"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        tools:context="ca.mcgill.ecse321.ftmanagementsystem.MainActivity"
+                        tools:showIn="@layout/activity_main">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true">
+
+                            <!-- Set up new Staffs  -->
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/newStaff"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                            <EditText
+                                android:textSize="14dp"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/newstaff_name"
+                                android:hint="@string/newStaff_Hint" />
+
+                            <EditText
+                                android:textSize="14dp"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/newstaff_role"
+                                android:hint="@string/newRole_Hint" />
+
+                            <Button
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="@string/addStaff_Button"
+                                android:onClick="addStaff"/>
+
+                            <View
+                                android:layout_height="4dp"
+                                android:layout_width="fill_parent"
+                                android:background="@color/colorSeparator"/>
+
+                            <!-- Set up new Shifts -->
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/newShift_Label"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                            <!-- Set up Dates -->
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent">
+
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/newDate_Label"/>
+
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/newDate_Sample"
+                                    android:layout_gravity="end"
+                                    android:id="@+id/new_date"
+                                    android:onClick="showDatePickerDialog"/>
+
+                            </LinearLayout>
+
+                            <!-- Set up Start Time -->
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/newStartTime_Label"/>
+
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/newStartTime_Sample"
+                                    android:layout_gravity="end"
+                                    android:id="@+id/new_StartTime"
+                                    android:onClick="showTimePickerDialog"/>
+
+                            </LinearLayout>
+
+                            <!-- Set up End Time -->
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/newEndTime_Label"/>
+
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/newEndTime_Sample"
+                                    android:layout_gravity="end"
+                                    android:id="@+id/new_EndTime"
+                                    android:onClick="showTimePickerDialog"/>
+
+                            </LinearLayout>
+
+                            <Button
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="@string/addShift_Button"
+                                android:onClick="addShift"
+                                android:id="@+id/button" />
+
+                            <View
+                                android:layout_height="4dp"
+                                android:layout_width="fill_parent"
+                                android:background="@color/colorSeparator"/>
+
+                            <!-- Set up Remove Staff  -->
+
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/staffmanager_Label"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent">
+
+                                <TextView
+
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/newStaff_Label"
+                                    android:id="@+id/textView2" />
+
+                                <Spinner
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:layout_gravity="left"
+                                    android:id="@+id/nameSpinner"/>
+
+
+                            </LinearLayout>
+                            <Button
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:text="@string/removeStaff_Label"
+                                android:onClick="removeStaff"
+                                android:id="@+id/button2" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:text="@string/shift_Label"
+                                    android:id="@+id/textView" />
+
+                                <Spinner
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:id="@+id/shiftSpinner"/>
+
+                            </LinearLayout>
+                            <Button
+                                android:textSize="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="@string/removeShift_Label"
+                                android:onClick="removeShift"
+                                android:id="@+id/button3" />
+
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <Button
+                                    android:textSize="12dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left"
+                                    android:text="@string/AddStafftoShift"
+                                    android:onClick="AddStafftoShift"/>
+
+                                <Button
+                                    android:textSize="12dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:text="@string/RemoveStafffromShift"
+                                    android:onClick="removeShiftfromStaff"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+// Tab 2
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/content_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:context="ca.mcgill.ecse321.ftmanagementsystem.MainActivity"
+                    tools:showIn="@layout/activity_main">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <!-- Set up new Supplies  -->
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/newSupply"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                    android:textSize="14dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newSupply"
+                    android:hint="@string/newSupplyHint" />
+
+                    <EditText
+                        android:textSize="14dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/supplyQuantity"
+                        android:hint="@string/supplyQuantity" /></LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/newBestBeforeDate"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/newDate_Sample"
+                        android:layout_gravity="end"
+                        android:id="@+id/bestBeforeDate"
+                        android:onClick="showDatePickerDialog"/>
+                </LinearLayout>
+                    <Button
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/createSupply"
+                        android:onClick="createSupply"/>
+                <View
+                    android:layout_height="4dp"
+                    android:layout_width="fill_parent"
+                    android:background="@color/colorSeparator"/>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <EditText
+                        android:textSize="14dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/newEquipment"
+                        android:hint="@string/newEquipment_Hint" />
+
+                    <EditText
+                        android:textSize="14dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/equipmentQuantity"
+                        android:hint="@string/supplyQuantity" />
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/createSupply"
+                        android:onClick="createEquipment"/>
+                    <View
+                        android:layout_height="4dp"
+                        android:layout_width="fill_parent"
+                        android:background="@color/colorSeparator"/>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/supplySpinnerLabal"
+                        android:id="@+id/supply" />
+
+                    <Spinner
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="right"
+                        android:id="@+id/supplySpinner"/>
+
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                <EditText
+                    android:textSize="14dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quantityS"
+                    android:hint="@string/supplyQuantity" />
+                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                <Button
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/removeSupply"
+                    android:onClick="removeSupply"/>
+                <Button
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/addtoSupplyInventory"
+                    android:onClick="addToSupplyInventory"/>
+                <Button
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/removeFromeSupplyInventory"
+                    android:onClick="removeFromSupplyInventory"/></LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/equipmentSpinnerLable"
+                        android:id="@+id/equipment" />
+
+                    <Spinner
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="right"
+                        android:id="@+id/equipmentSpinner"/>
+
+                </LinearLayout>
+                <EditText
+                        android:textSize="14dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/quantityE"
+                        android:hint="@string/supplyQuantity" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <Button
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/removeSupply"
+                        android:onClick="removeEquipment"/>
+                    <Button
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/addtoSupplyInventory"
+                        android:onClick="addToEquipmentInventory"/>
+                    <Button
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/removeFromeSupplyInventory"
+                        android:onClick="removeFromEquipmentInventory"/></LinearLayout>
+                </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+//Tab 3
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+</RelativeLayout>

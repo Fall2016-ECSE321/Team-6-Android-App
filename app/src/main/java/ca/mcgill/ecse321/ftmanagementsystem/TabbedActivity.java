@@ -139,7 +139,20 @@ public class TabbedActivity extends AppCompatActivity {
             this.supplies.put(k, s);
         }
         spinner3.setAdapter(supplyAdapter);
+        Spinner spinner4 = (Spinner) findViewById(R.id.equipmentSpinner);
 
+        ArrayAdapter<CharSequence> equipmentAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        equipmentAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.equipments = new HashMap<Integer, Equipment>();
+        int l = 0;
+        FoodTruckManager fm4 = FoodTruckManager.getInstance();
+        for (Iterator<Equipment> equipmenttemp = fm4.getEquipment().iterator();
+             equipmenttemp.hasNext(); l++) {
+            Equipment s = equipmenttemp.next();
+            supplyAdapter.add(s.getName());
+            this.equipments.put(l, s);
+        }
+        spinner4.setAdapter(equipmentAdapter);
 
     }
 

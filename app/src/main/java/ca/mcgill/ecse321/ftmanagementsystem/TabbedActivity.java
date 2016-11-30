@@ -75,7 +75,7 @@ public class TabbedActivity extends AppCompatActivity {
         //Tab 2
         spec = host.newTabSpec("Supply Equipment");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("Supyly Equipment");
+        spec.setIndicator("Supply Equipment");
         host.addTab(spec);
 
         //Tab 3

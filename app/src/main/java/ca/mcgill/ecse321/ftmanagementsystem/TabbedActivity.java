@@ -30,10 +30,12 @@ import java.util.Iterator;
 
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.EquipmentController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.InvalidInputException;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.MenuController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.StaffController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.SupplyController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
@@ -43,10 +45,7 @@ public class TabbedActivity extends AppCompatActivity {
     private HashMap<Integer, Shift> shifts;
     private HashMap<Integer, Supply> supplies;
     private HashMap<Integer, Equipment> equipments;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+    private HashMap<Integer, Item> items;
     private GoogleApiClient client;
 
 
@@ -67,21 +66,21 @@ public class TabbedActivity extends AppCompatActivity {
         host.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("Staff Shift");
+        TabHost.TabSpec spec = host.newTabSpec("Staff");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("Staff Shift");
+        spec.setIndicator("Staff");
         host.addTab(spec);
 
         //Tab 2
-        spec = host.newTabSpec("Supply Equipment");
+        spec = host.newTabSpec("Supply");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("Supyly Equipment");
+        spec.setIndicator("Supply");
         host.addTab(spec);
 
         //Tab 3
-        spec = host.newTabSpec("Tab 2Three");
+        spec = host.newTabSpec("Menu");
         spec.setContent(R.id.tab3);
-        spec.setIndicator("Order");
+        spec.setIndicator("Menu");
         host.addTab(spec);
 
 
@@ -121,7 +120,7 @@ public class TabbedActivity extends AppCompatActivity {
         for (Iterator<Shift> shifttemp = fm2.getShifts().iterator();
              shifttemp.hasNext(); j++) {
             Shift s = shifttemp.next();
-            shiftAdapter.add(s.getShiftDate() + " (" + s.getStartTime() + "--" + s.getEndTime() +")");
+            shiftAdapter.add(s.getShiftDate() + " (" + s.getStartTime() + "--" + s.getEndTime() + ")");
             this.shifts.put(j, s);
         }
         spinner2.setAdapter(shiftAdapter);
@@ -149,10 +148,30 @@ public class TabbedActivity extends AppCompatActivity {
         for (Iterator<Equipment> equipmenttemp = fm4.getEquipment().iterator();
              equipmenttemp.hasNext(); l++) {
             Equipment s = equipmenttemp.next();
-            supplyAdapter.add(s.getName());
+            equipmentAdapter.add(s.getName());
             this.equipments.put(l, s);
         }
         spinner4.setAdapter(equipmentAdapter);
+
+        Spinner spinner5 = (Spinner) findViewById(R.id.itemSpinner);
+
+        ArrayAdapter<CharSequence> itemAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.items = new HashMap<Integer, Item>();
+        int m = 0;
+        FoodTruckManager fm5 = FoodTruckManager.getInstance();
+        for (Iterator<Item> itemtemp = fm5.getItems().iterator();
+             itemtemp.hasNext(); m++) {
+            Item t = itemtemp.next();
+            itemAdapter.add(t.getName());
+            this.items.put(m, t);
+        }
+        spinner5.setAdapter(itemAdapter);
+
+        Spinner spinner6 = (Spinner) findViewById(R.id.supplySpinner2);
+        spinner6.setAdapter(supplyAdapter);
+        Spinner spinner7 = (Spinner) findViewById(R.id.itemSpinner2);
+        spinner7.setAdapter(itemAdapter);
 
     }
 
@@ -625,6 +644,121 @@ public class TabbedActivity extends AppCompatActivity {
 
     }
 
+    public void addSupply(View v)
+    {   Spinner item = (Spinner) findViewById(R.id.itemSpinner);
+        Spinner supply = (Spinner) findViewById(R.id.supplySpinner2);
+        int index = item.getSelectedItemPosition();
+        int index2 = supply.getSelectedItemPosition();
+
+        try {
+            MenuController mc = new MenuController();
+            mc.addSupply(supplies.get(index2),items.get(index));
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+    public void removeSupplyfromItem(View v){
+        Spinner item = (Spinner) findViewById(R.id.itemSpinner);
+        Spinner supply = (Spinner) findViewById(R.id.supplySpinner2);
+        int index = item.getSelectedItemPosition();
+        int index2 = supply.getSelectedItemPosition();
+
+        try {
+            MenuController mc = new MenuController();
+            mc.removeSupply(supplies.get(index2),items.get(index));
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+
+    public void createItem(View v){
+        TextView item = (TextView) findViewById(R.id.newItem);
+        TextView desc = (TextView) findViewById(R.id.description);
+        MenuController mc = new MenuController();
+        try {
+            mc.createItem(item.getText().toString(), desc.getText().toString());
+
+        } catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+
+        }
+        refreshData();
+    }
+    public void removeItem(View v){
+        Spinner spinner1 = (Spinner) findViewById(R.id.itemSpinner);
+
+        int index = spinner1.getSelectedItemPosition();
+        try {
+            MenuController mc = new MenuController();
+            mc.removeItem(items.get(index));
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+    }
+    public void addItemtoOrder(View v){
+        Spinner item = (Spinner) findViewById(R.id.itemSpinner2);
+        int index = item.getSelectedItemPosition();
+
+        try {
+            MenuController mc = new MenuController();
+            mc.makeOrder(items.get(index));
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+    }
+    public void removeItemFromOrder(View v){
+
+        try {
+            MenuController mc = new MenuController();
+            mc.removeOrder();
+
+        }
+        catch (InvalidInputException e) {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
+            dlgAlert.setMessage(e.getMessage());
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+        }
+        refreshData();
+
+
+    }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
     }

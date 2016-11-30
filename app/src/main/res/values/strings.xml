@@ -39,4 +39,17 @@
     <string name="newBestBeforeDate">Expiration Date</string>
     <string name="equipmentSpinnerLable">Equipment</string>
     <string name="newEquipment_Hint">Add Equipment</string>
+    <string name="newItemMEnu">New Item</string>
+    <string name="MenuItem">MEnu</string>
+    <string name="desc">Description</string>
+    <string name="addItem">Add Item</string>
+    <string name="itemSpinnerLabel">Item</string>
+    <string name="removeItem">Remove</string>
+    <string name="supplySpinn">Add supply to Item</string>
+    <string name="addSupply">Add</string>
+    <string name="Order">Order</string>
+    <string name="selectITem">Select Item to order</string>
+    <string name="delete">Delete Order</string>
+    <string name="add_to_order">Order</string>
+    <string name="addItemtoOrder">Add to order</string>
 </resources>

@@ -452,14 +452,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/addtoSupplyInventory"
+                    android:text="@string/addToSupplyInventory"
                     android:onClick="addToSupplyInventory"/>
                 <Button
                     android:textSize="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="@string/removeFromeSupplyInventory"
+                    android:text="@string/removeFromSupplyInventory"
                     android:onClick="removeFromSupplyInventory"/></LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -499,14 +499,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="@string/addtoSupplyInventory"
+                        android:text="@string/addToSupplyInventory"
                         android:onClick="addToEquipmentInventory"/>
                     <Button
                         android:textSize="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:text="@string/removeFromeSupplyInventory"
+                        android:text="@string/removeFromSupplyInventory"
                         android:onClick="removeFromEquipmentInventory"/></LinearLayout>
                 </LinearLayout>
         </RelativeLayout>

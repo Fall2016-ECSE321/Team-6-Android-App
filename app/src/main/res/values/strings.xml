@@ -30,9 +30,8 @@
     <string name="supplyQuantity">Quantity</string>
     <string name="removeSupply">Remove</string>
     <string name="supplySpinnerLabal">Supply</string>
-    <string name="addtoSupplyInventory">Add to Inventory</string>
-    <string name="removeFromeSupplyInventory">Remove from Inventory</string>
-    <string name="newEquipent_Hint">Equipment</string>
+    <string name="addToSupplyInventory">Add Quantity</string>
+    <string name="removeFromSupplyInventory">Remove Quantity</string>
     <string name="Equipment">Equipment</string>
     <string name="newSupplyHint">Add Supply</string>
     <string name="newEquipment">Add Equipment</string>

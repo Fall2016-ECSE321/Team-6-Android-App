@@ -1,3 +1,5 @@
+
+
 package ca.mcgill.ecse321.ftmanagementsystem;
 
 import android.app.Activity;
@@ -39,7 +41,11 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
+/* This class contains all the refactored code from the jar files
+    It implements all the functionality of the app
 
+    @Author: Cyril Abiaad
+ */
 public class TabbedActivity extends AppCompatActivity {
     private HashMap<Integer, Staff> staffMembers;
     private HashMap<Integer, Shift> shifts;
@@ -88,7 +94,13 @@ public class TabbedActivity extends AppCompatActivity {
 
     }
 
+    /*Method to update what is being displayed in the app after the user enters a new quantity
+    or removes something
+    it is called at the end of every method
 
+            @Author: Cyril Abiaad
+
+            */
     private void refreshData() {
 
         TextView name = (TextView) findViewById(R.id.newstaff_name);
@@ -134,7 +146,7 @@ public class TabbedActivity extends AppCompatActivity {
         for (Iterator<Supply> supplytemp = fm3.getSupplies().iterator();
              supplytemp.hasNext(); k++) {
             Supply s = supplytemp.next();
-            supplyAdapter.add(s.getName());
+            supplyAdapter.add(s.getName()+ " (" + s.getQuantity() + ")");
             this.supplies.put(k, s);
         }
         spinner3.setAdapter(supplyAdapter);
@@ -148,7 +160,7 @@ public class TabbedActivity extends AppCompatActivity {
         for (Iterator<Equipment> equipmenttemp = fm4.getEquipment().iterator();
              equipmenttemp.hasNext(); l++) {
             Equipment s = equipmenttemp.next();
-            equipmentAdapter.add(s.getName());
+            equipmentAdapter.add(s.getName()+ " (" + s.getQuantity() + ")");
             this.equipments.put(l, s);
         }
         spinner4.setAdapter(equipmentAdapter);
@@ -196,7 +208,12 @@ public class TabbedActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+/*Method to add staff
+by reading 2 string values from edit view (the role and name)
 
+@Author: Cyril Abiaad
+
+ */
     public void addStaff(View v) {
         TextView name = (TextView) findViewById(R.id.newstaff_name);
         TextView role = (TextView) findViewById(R.id.newstaff_role);
@@ -224,6 +241,12 @@ public class TabbedActivity extends AppCompatActivity {
         }
         refreshData();
     }
+    /*Method to remove a shift
+by reading the current shift value from the spinner
+
+@Author: Cyril Abiaad
+
+ */
     public void removeShift(View v){
         Spinner spinner1 = (Spinner) findViewById(R.id.shiftSpinner);
 
@@ -244,6 +267,12 @@ public class TabbedActivity extends AppCompatActivity {
         }
         refreshData();
     }
+    /*Method to remove a shift
+by reading the current staff value from the spinner
+
+@Author: Cyril Abiaad
+
+*/
     public void removeStaff(View v) {
         //Initialize staff spinner and get staff from spinner
         Spinner spinner1 = (Spinner) findViewById(R.id.nameSpinner);
@@ -267,6 +296,13 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to add shift
+by reading 3 string values from edit view (the start time end time and date)
+it then parses then to the correct format before calling the relevant function
+
+@Author: Cyril Abiaad
+
+ */
     public void addShift(View v) {
         TextView tv1 = (TextView) this.findViewById(R.id.new_date);
         TextView tv2 = (TextView) this.findViewById(R.id.new_StartTime);
@@ -399,7 +435,14 @@ public class TabbedActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
-    //Method to Add a staff member to a shift
+    /*Method to Add a staff member to a shift
+    it takes the staff member and the shift from 2 spinners the user selects
+    and assigns a shift to the staff
+
+@Author: Cyril Abiaad
+
+*/
+
     public void AddStafftoShift(View view) {
         //read shift from spinner
         Spinner spinner1 = (Spinner) findViewById(R.id.shiftSpinner);
@@ -440,7 +483,14 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
-    //Method to remove a staff from shift
+
+    /*Method to remove a staff member from a shift
+    it takes the staff member and the shift from 2 spinners the user selects
+    and removes the staff from the shift
+
+@Author: Cyril Abiaad
+
+*/
     public void removeShiftfromStaff(View v){
         // read shift from spinner
         Spinner spinner1 = (Spinner) findViewById(R.id.shiftSpinner);
@@ -481,6 +531,13 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to create a new supply item
+    it takes 2 string values the supply name quantity
+    and 1 best before date
+
+@Author: Cyril Abiaad
+
+*/
     public void createSupply(View v) {
         TextView supply = (TextView) findViewById(R.id.newSupply);
         TextView quantity = (TextView) findViewById(R.id.supplyQuantity);
@@ -506,6 +563,14 @@ public class TabbedActivity extends AppCompatActivity {
         }
         refreshData();
     }
+
+
+    /*Method to remove a supply item
+    removes supply item selected in spinner
+
+@Author: Cyril Abiaad
+
+*/
     public void removeSupply(View v) {
         Spinner spinner1 = (Spinner) findViewById(R.id.supplySpinner);
 
@@ -525,7 +590,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to add a supply item to list of inventory
+          reads the supply item from the spinner and a string value quantity
 
+        @Author: Cyril Abiaad
+
+        */
     public void addToSupplyInventory(View v){
         TextView tv1 = (TextView) findViewById(R.id.quantityS);
         Spinner spinner1 = (Spinner) findViewById(R.id.supplySpinner);
@@ -546,6 +616,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to remove a supply item from list of inventory
+          reads the supply item from the spinner and a string value quantity
+
+        @Author: Cyril Abiaad
+
+        */
     public void removeFromSupplyInventory(View v){
         TextView tv1 = (TextView) findViewById(R.id.quantityS);
         Spinner spinner1 = (Spinner) findViewById(R.id.supplySpinner);
@@ -566,7 +642,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to create a new Equipment item
+        it takes 2 string values the supply name quantity
 
+    @Author: Cyril Abiaad
+
+    */
     public void createEquipment(View v){
         TextView equipment = (TextView) findViewById(R.id.newEquipment);
         TextView quantity = (TextView) findViewById(R.id.equipmentQuantity);
@@ -584,6 +665,12 @@ public class TabbedActivity extends AppCompatActivity {
         }
         refreshData();
     }
+    /*Method to remove a equipment item
+    removes equipment item selected in spinner
+
+@Author: Cyril Abiaad
+
+*/
     public void removeEquipment(View v){
         Spinner spinner1 = (Spinner) findViewById(R.id.equipmentSpinner);
 
@@ -603,6 +690,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to add an equipment item to list of inventory
+          reads the equipment item from the spinner and a string value quantity
+
+        @Author: Cyril Abiaad
+
+        */
     public void addToEquipmentInventory(View v){
         TextView tv1 = (TextView) findViewById(R.id.quantityE);
         Spinner spinner1 = (Spinner) findViewById(R.id.equipmentSpinner);
@@ -623,6 +716,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to remove an equipment item from list of inventory
+          reads the equipment item from the spinner and a string value quantity
+
+        @Author: Cyril Abiaad
+
+        */
     public void removeFromEquipmentInventory(View v){
         TextView tv1 = (TextView) findViewById(R.id.quantityE);
         Spinner spinner1 = (Spinner) findViewById(R.id.equipmentSpinner);
@@ -643,7 +742,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to add a supply item to a menu item
+              reads the supply item from the spinner and the menu item name from another spinner
 
+            @Author: Cyril Abiaad
+
+            */
     public void addSupply(View v)
     {   Spinner item = (Spinner) findViewById(R.id.itemSpinner);
         Spinner supply = (Spinner) findViewById(R.id.supplySpinner2);
@@ -665,6 +769,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to remove a supply item to a menu item
+              reads the supply item from the spinner and the menu item name from another spinner
+
+            @Author: Cyril Abiaad
+
+            */
     public void removeSupplyfromItem(View v){
         Spinner item = (Spinner) findViewById(R.id.itemSpinner);
         Spinner supply = (Spinner) findViewById(R.id.supplySpinner2);
@@ -686,7 +796,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to create a new menu item
+            it takes 2 string values the item name and description
 
+        @Author: Cyril Abiaad
+
+        */
     public void createItem(View v){
         TextView item = (TextView) findViewById(R.id.newItem);
         TextView desc = (TextView) findViewById(R.id.description);
@@ -704,6 +819,12 @@ public class TabbedActivity extends AppCompatActivity {
         }
         refreshData();
     }
+    /*Method to remove an item from the menu
+   removes menu item selected in spinner
+
+@Author: Cyril Abiaad
+
+*/
     public void removeItem(View v){
         Spinner spinner1 = (Spinner) findViewById(R.id.itemSpinner);
 
@@ -723,6 +844,12 @@ public class TabbedActivity extends AppCompatActivity {
         refreshData();
 
     }
+    /*Method to order an item from the menu
+  reads the value from a spinner
+
+@Author: Cyril Abiaad
+
+*/
     public void addItemtoOrder(View v){
         Spinner item = (Spinner) findViewById(R.id.itemSpinner2);
         int index = item.getSelectedItemPosition();
@@ -741,6 +868,12 @@ public class TabbedActivity extends AppCompatActivity {
         }
         refreshData();
     }
+
+    /*Method to delete the last order commited
+
+@Author: Cyril Abiaad
+
+*/
     public void removeItemFromOrder(View v){
 
         try {

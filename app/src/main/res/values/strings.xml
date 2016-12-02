@@ -7,6 +7,7 @@
     <string name="newRole_Hint"> Role </string>
     <string name="newRole_Label"> Role? </string>
     <string name="addRole_Button"> Add Role </string>
+    <string name="staffList_Button"> Staff List </string>
     <string name="newShift_Label"> New Shift </string>
     <string name="newShift_Hint"> Shift Day </string>
     <string name="addShift_Button"> Add Shift </string>

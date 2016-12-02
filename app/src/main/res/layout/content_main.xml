@@ -42,13 +42,27 @@
             android:id="@+id/newstaff_role"
             android:hint="@string/newRole_Hint" />
 
-        <Button
-            android:textSize="12dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/addStaff_Button"
-            android:onClick="addStaff"/>
+            android:layout_width="wrap_content">
+
+            <Button
+                android:textSize="12dp"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/staffList_Button"
+                android:onClick="printDataBase"/>
+
+            <Button
+                android:textSize="12dp"
+                android:layout_width="188dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="@string/addStaff_Button"
+                android:onClick="addStaff"/>
+
+        </LinearLayout>
 
         <View
             android:layout_height="4dp"

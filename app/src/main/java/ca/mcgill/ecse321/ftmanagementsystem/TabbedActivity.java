@@ -38,13 +38,17 @@ import ca.mcgill.ecse321.FoodTruckManagementSystem.controller.SupplyController;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Equipment;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.FoodTruckManager;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Item;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Order;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Shift;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Staff;
 import ca.mcgill.ecse321.FoodTruckManagementSystem.model.Supply;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceStaffController;
+import ca.mcgill.ecse321.FoodTruckManagementSystem.persistence.PersistenceXStream;
+
 /* This class contains all the refactored code from the jar files
     It implements all the functionality of the app
 
-    @Author: Cyril Abiaad
+    @Author: Cyril Abiaad & Maxence Regaudie
  */
 public class TabbedActivity extends AppCompatActivity {
     private HashMap<Integer, Staff> staffMembers;
@@ -54,13 +58,15 @@ public class TabbedActivity extends AppCompatActivity {
     private HashMap<Integer, Item> items;
     private GoogleApiClient client;
 
-
     TabHost host;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabbed);
+
+        String location = getFilesDir() + "data.xml";
+        PersistenceStaffController.loadModel(location);
 
 
         host= (TabHost)findViewById(R.id.tabHost);
@@ -94,13 +100,10 @@ public class TabbedActivity extends AppCompatActivity {
 
     }
 
-    /*Method to update what is being displayed in the app after the user enters a new quantity
-    or removes something
-    it is called at the end of every method
+    /*Method that empty all the fields on the views after an action has been completed.
 
-            @Author: Cyril Abiaad
-
-            */
+            @Author: Cyril Abiaad & Maxence Regaudie
+    */
     private void refreshData() {
 
         TextView name = (TextView) findViewById(R.id.newstaff_name);
@@ -208,10 +211,10 @@ public class TabbedActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-/*Method to add staff
+/*Method that takes inputs from the views to create a new staff
 by reading 2 string values from edit view (the role and name)
 
-@Author: Cyril Abiaad
+@Author: Cyril Abiaad & Maxence Regaudie
 
  */
     public void addStaff(View v) {
@@ -220,17 +223,6 @@ by reading 2 string values from edit view (the role and name)
         StaffController sc = new StaffController();
         try {
             sc.createStaff(name.getText().toString(), role.getText().toString());
-//TODO: CRASH
-      /*      if (name == null) {
-                error = error + " Staff name cannot be empty!";
-            }
-
-            if (role == null) {
-                error = error + " Staff member must have a role!";
-            }
-            if (error.length() > 0) {
-                throw new InvalidInputException(error);
-            } */
         } catch (InvalidInputException e) {
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
             dlgAlert.setMessage(e.getMessage());
@@ -241,10 +233,9 @@ by reading 2 string values from edit view (the role and name)
         }
         refreshData();
     }
-    /*Method to remove a shift
-by reading the current shift value from the spinner
+    /*Method that take information form the spinner in the view and delete the element from the shift list
 
-@Author: Cyril Abiaad
+            @Author: Cyril Abiaad & Maxence Regaudie
 
  */
     public void removeShift(View v){
@@ -267,10 +258,9 @@ by reading the current shift value from the spinner
         }
         refreshData();
     }
-    /*Method to remove a shift
-by reading the current staff value from the spinner
+    /*Method to remove a staff by reading the current staff value from the spinner
 
-@Author: Cyril Abiaad
+            @Author: Cyril Abiaad & Maxence Regaudie
 
 */
     public void removeStaff(View v) {
@@ -297,10 +287,10 @@ by reading the current staff value from the spinner
 
     }
     /*Method to add shift
-by reading 3 string values from edit view (the start time end time and date)
-it then parses then to the correct format before calling the relevant function
+        by reading 3 string values from edit view (the start time end time and date)
+        it then parses then to the correct format before calling the relevant function
 
-@Author: Cyril Abiaad
+        @Author: Cyril Abiaad
 
  */
     public void addShift(View v) {
@@ -856,7 +846,7 @@ it then parses then to the correct format before calling the relevant function
 
         try {
             MenuController mc = new MenuController();
-            mc.makeOrder(items.get(index));
+            mc.addItemToOrder(items.get(index));
 
         }
         catch (InvalidInputException e) {
@@ -871,14 +861,16 @@ it then parses then to the correct format before calling the relevant function
 
     /*Method to delete the last order commited
 
-@Author: Cyril Abiaad
+@Author: Cyril Abiaad & Maxence Regaudie
 
 */
     public void removeItemFromOrder(View v){
+        Spinner item = (Spinner) findViewById(R.id.itemSpinner2);
+        int index = item.getSelectedItemPosition();
 
         try {
             MenuController mc = new MenuController();
-            mc.removeOrder();
+            mc.removeItemFromOrder(items.get(index));
 
         }
         catch (InvalidInputException e) {
